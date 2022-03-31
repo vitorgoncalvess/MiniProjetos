@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DPS</title>
+</head>
+<body style="text-align: center;">
+    <span class="clique">CLIQUE NA AREA VERDE PARA VER SEU CPS</span>
+    <div class="resultado">
+        RESULTADOS <br> <br>
+        <span id="resultado"></span>
+    </div>
+    <div id="dpsContainer" class="dpsContainer" onclick="iniciar()"></div>
+    <div id="fimJogo" class="fimJogo">
+        <span class="segundoInGame">GAME OVER</span>
+    </div>
+    <div id="click" class="click" onclick="clicks()">
+        <span id="segundoInGame" class="segundoInGame">0</span>
+    </div>
+    <div class="texto" id="texto">
+
+    </div>
+    <button id="botaoReiniciar" onclick="reiniciar()" class="botaoReiniciar">Reiniciar</button>
+</body>
+</html>
+<script>
+    cliques = 0
+    segundo = 0
+    dps = 0
+    segundoFim = 10
+    function reiniciar() {
+        cliques = 0
+        segundo = 0
+        dps = 0
+        segundoFim = 10
+        dpsContainer.style.display = 'block'
+        fimJogo.style.display = 'none'
+        texto.innerHTML = ''
+        botaoReiniciar.style.display = 'none'
+    }
+    function clicks() {
+        cliques++
+        dps = cliques / segundo
+            texto.innerHTML = `<br>${dps.toFixed(2)} CPS`
+    }
+    function iniciar() {
+        click.style.display = 'block'
+        dpsContainer.style.display = 'none'
+        myFunction()
+        myFunctionFim()
+    }
+    function myFunctionFim() {
+        segundoFim--
+        segundoInGame.innerHTML = `${segundoFim}`
+        setTimeout(myFunctionFimStop, 1000)
+    }
+    function myFunctionFimStop() {
+        if (segundoFim > 0) {
+            myFunctionFim()
+        }
+    }
+    function myFunction() {
+        segundo++
+        setTimeout(myFunctionStop, 1000)
+    }
+    function myFunctionStop() {
+        if(segundo <= 8) {
+            myFunction()
+        } else {
+            click.style.display = 'none'
+            fimJogo.style.display = 'block'
+            botaoReiniciar.style.display = 'block'
+            resultado.innerHTML += `${dps.toFixed(2)} CPS`
+                if (dps > 10) {
+                    resultado.innerHTML += ` | Você é uma Lenda <br>`
+                } else if (dps > 6) {
+                    resultado.innerHTML += ` | Você é muito bom <br>`
+                } else if (dps > 4) {
+                    resultado.innerHTML += ` | Você é bom <br>`
+                } else if (dps > 2) {
+                    resultado.innerHTML += ` | Você é casual <br>`
+                } else {
+                    resultado.innerHTML += ` | Você nem tentou <br>`
+                }
+        }
+    }
+</script>
+<style>
+    .botaoReiniciar {
+        position: relative;
+        margin-left: 1050px;
+        margin-top: -100px;
+        width: 100px;
+        height: 50px;
+        display: none;
+    }
+    .resultado {
+        position: fixed;
+        margin-top: 100px;
+        margin-left: 1000px;
+        font-size: 20px;
+        font-family: Arial;
+    }
+    body {
+        user-select: none;
+    }
+    .texto {
+        font-size: 50px;
+        font-family: Arial;
+    }
+    .fimJogo {
+        background-color: rgb(93, 255, 93);
+        height: 300px;
+        width: 300px;
+        border: 2px solid rgb(0, 177, 0);
+        border-radius: 10px;
+        position: relative;
+        margin-top: 100px;
+        margin-left: 520px;
+        cursor: pointer;
+        display: none;   
+    }
+    .click {
+        background-color: rgb(93, 255, 93);
+        height: 300px;
+        width: 300px;
+        border: 2px solid rgb(0, 177, 0);
+        border-radius: 10px;
+        position: relative;
+        margin-top: 100px;
+        margin-left: 520px;
+        cursor: pointer;
+        display: none;
+    }
+    .dpsContainer {
+        background-color: rgb(93, 255, 93);
+        height: 300px;
+        width: 300px;
+        border: 2px solid rgb(0, 177, 0);
+        border-radius: 10px;
+        position: relative;
+        margin-top: 100px;
+        margin-left: 520px;
+        cursor: pointer;
+        display: block;
+    }
+    .segundoInGame {
+        color: green;
+        font-size: 100px;
+        font-family: Arial;
+    }
+    .clique {
+        font-size: 50px;
+        font-family: Arial;
+        font-style: bold;
+    }
+</style>
