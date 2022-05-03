@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack</title>
+</head>
+<body style="font-size: 30px; font-family: Arial;">
+    <button class="botao" id="botao" onclick="startGame()">Iniciar Jogo</button>
+    <button style="display: none; margin-top: 25.5%; margin-left: 0% ; position: fixed;" class="botao" id="pedirB" onclick="pegarCarta()">Pedir Carta</button>
+    <button id="pararB" onclick="parar()" class="botao" style="display: none;width: 80px; margin-top: 25.5%; margin-left: 13% ; position: fixed;">Parar</button>
+    <div class="oponente" id="oponente"></div>
+    <div class="oponente" id="oponenteR"></div>
+    <div id="totalOponente"></div>
+    <div class="jogador" id="jogador"></div>
+    <div style="position: fixed;" id="totalJogador"></div>
+</body>
+</html>
+<script>
+    totalJ = 0
+    totalO = 0
+    function totalJoga() {
+        totalJogador.innerHTML = `${totalJ}`
+    }
+    function totalOp() {
+        totalOponente.innerHTML = `${totalO}`
+    }
+    function startGame() {
+       botao.style.display = 'none'
+       pedirB.style.display = 'block'
+       pararB.style.display = 'block'
+       pegarCarta()
+       pegarOponente()
+    }
+    function pegarCarta() {
+            cartaJ = Math.floor(Math.random() * (13 - 1)) + 1;
+        if (cartaJ == 1) {
+            totalJ += 1
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
+        } else if (cartaJ == 2) {
+            totalJ += 2
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1198/7/2%20de%20paus.png">`
+        } else if (cartaJ == 3) {
+            totalJ += 3
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1202/7/3%20de%20paus.png">`
+        } else if (cartaJ == 4) {
+            totalJ += 4
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1206/7/4%20de%20paus.png">`
+        } else if (cartaJ == 5) {
+            totalJ += 5
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1210/7/5%20de%20paus.png">`
+        } else if (cartaJ == 6) {
+            totalJ += 6
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1214/7/6%20de%20paus.png">`
+        } else if (cartaJ == 7) {
+            totalJ += 7
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1218/8/7%20de%20paus.png">`
+        } else if (cartaJ == 8) {
+            totalJ += 8
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1222/7/8%20de%20paus.png">`
+        } else if (cartaJ == 9) {
+            totalJ += 9
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1226/7/9%20de%20paus.png">`
+        } else if (cartaJ == 10) {
+            totalJ += 10
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1230/7/10%20de%20paus.png">`
+        } else if (cartaJ == 11) {
+            totalJ += 10
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1235/7/dama%20de%20paus.png">`
+        } else if (cartaJ == 12) {
+            totalJ += 10
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1239/7/valete%20de%20paus.png">`
+        } else if (cartaJ == 13) {
+            totalJ += 10
+            totalJoga()
+            jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
+        }
+        if (totalJ > 21) {
+            pedirB.style.display = 'none'
+            pararB.style.display = 'none'
+            totalJogador.innerHTML = `ESTOUROU!`
+        }
+    }
+    function pegarOponente() {
+         cartaO = Math.floor(Math.random() * (13 - 1)) + 1;
+        if (cartaO == 1) {
+            totalO += 1
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
+        } else if (cartaO == 2) {
+            totalO += 2
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1198/7/2%20de%20paus.png">`
+        } else if (cartaO == 3) {
+            totalO += 3
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1202/7/3%20de%20paus.png">`
+        } else if (cartaO == 4) {
+            totalO += 4
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1206/7/4%20de%20paus.png">`
+        } else if (cartaO == 5) {
+            totalO += 5
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1210/7/5%20de%20paus.png">`
+        } else if (cartaO == 6) {
+            totalO += 6
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1214/7/6%20de%20paus.png">`
+        } else if (cartaO == 7) {
+            totalO += 7
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1218/8/7%20de%20paus.png">`
+        } else if (cartaO == 8) {
+            totalO += 8
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1222/7/8%20de%20paus.png">`
+        } else if (cartaO == 9) {
+            totalO += 9
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1226/7/9%20de%20paus.png">`
+        } else if (cartaO == 10) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1230/7/10%20de%20paus.png">`
+        } else if (cartaO == 11) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1235/7/dama%20de%20paus.png">`
+        } else if (cartaO == 12) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1239/7/valete%20de%20paus.png">`
+        } else if (cartaO == 13) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
+        }
+        oponenteR.innerHTML += `<img style="height: 200px;" src="https://worldxm.net/worldxm.net/wp-content/uploads/2018/10/blue-copag-back-310-web.png">`
+    }
+    function parar() {
+        pedirB.style.display = 'none'
+        pararB.style.display = 'none'
+        oponenteR.style.display = 'none'
+        resultado()
+    }
+    function resultado() {
+        if(totalO <= totalJ) {
+            setInterval(pegarOponenteFinal(), 1000)
+        }
+    }
+    function pegarOponenteFinal() {
+        cartaO = Math.floor(Math.random() * (13 - 1)) + 1;
+        if (cartaO == 1) {
+            totalO += 1
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
+        } else if (cartaO == 2) {
+            totalO += 2
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1198/7/2%20de%20paus.png">`
+        } else if (cartaO == 3) {
+            totalO += 3
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1202/7/3%20de%20paus.png">`
+        } else if (cartaO == 4) {
+            totalO += 4
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1206/7/4%20de%20paus.png">`
+        } else if (cartaO == 5) {
+            totalO += 5
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1210/7/5%20de%20paus.png">`
+        } else if (cartaO == 6) {
+            totalO += 6
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1214/7/6%20de%20paus.png">`
+        } else if (cartaO == 7) {
+            totalO += 7
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1218/8/7%20de%20paus.png">`
+        } else if (cartaO == 8) {
+            totalO += 8
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1222/7/8%20de%20paus.png">`
+        } else if (cartaO == 9) {
+            totalO += 9
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1226/7/9%20de%20paus.png">`
+        } else if (cartaO == 10) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1230/7/10%20de%20paus.png">`
+        } else if (cartaO == 11) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1235/7/dama%20de%20paus.png">`
+        } else if (cartaO == 12) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1239/7/valete%20de%20paus.png">`
+        } else if (cartaO == 13) {
+            totalO += 10
+            totalOp()
+            oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
+        }
+        resultado()
+    }
+</script>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+    }
+    .botao {
+        height: 50px;
+    }
+    .jogador {
+        margin-top: 30%;
+    }
+    #totalOponente {
+        position: fixed;
+        margin-top: 15%;
+    }
+    #totalJogador {
+        position: fixed;
+        margin-top: 23%;
+    }
+    .oponente {
+        position: fixed;
+        margin-left: 0%;
+    }
+    #oponenteR {
+        margin-left: 23%;
+    }
+</style>
