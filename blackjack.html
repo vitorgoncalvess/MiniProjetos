@@ -11,6 +11,7 @@
     <button style="display: none; margin-top: 25.5%; margin-left: 0% ; position: fixed;" class="botao" id="pedirB" onclick="pegarCarta()">Pedir Carta</button>
     <button id="pararB" onclick="parar()" class="botao" style="display: none;width: 80px; margin-top: 25.5%; margin-left: 13% ; position: fixed;">Parar</button>
     <button onclick="restart()" class="botao" id="reiniciarJogo" style="position: fixed; margin-top: 19%; display: none;">Reiniciar Jogo</button>
+    <div id="percent" class="jogador" style="margin-top: 363px;margin-left: -140px; font-size: 20px; display: none; position: fixed;"></div>
     <div class="oponente" id="oponente"></div>
     <div class="oponente" id="oponenteR"></div>
     <div id="totalOponente"></div>
@@ -21,6 +22,10 @@
 <script>
     totalJ = 0
     totalO = 0
+    cartaA = 0
+    cartaAO = 0
+    limite = 21
+    porcent = 0
     function totalJoga() {
         totalJogador.innerHTML = `${totalJ}`
     }
@@ -31,12 +36,14 @@
        botao.style.display = 'none'
        pedirB.style.display = 'block'
        pararB.style.display = 'block'
+       percent.style.display = 'block'
        pegarCarta()
        pegarOponente()
     }
     function pegarCarta() {
             cartaJ = Math.floor(Math.random() * (13 - 1)) + 1;
         if (cartaJ == 1) {
+            cartaA = 1
             totalJ += 1
             totalJoga()
             jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
@@ -89,21 +96,39 @@
             totalJoga()
             jogador.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
         }
-        if (totalJ > 21) {
+        if (totalJ <= 11 && cartaA == 1) {
+            totalJogador.innerHTML = `${totalJ} ou ${totalJ + 9}`
+            cartaAF = 1
+        } else {
+            totalJogador.innerHTML = `${totalJ}`
+            cartaAF = 0
+        }
+        if (totalJ > limite) {
             pedirB.style.display = 'none'
             pararB.style.display = 'none'
+            percent.style.display = 'none'
             totalJogador.innerHTML += `<br>ESTOUROU!`
             reiniciarJogo.style.display = 'block'
         }
-        if (totalJ == 21) {
+        if (totalJ == limite) {
             pedirB.style.display = 'none'
             pararB.style.display = 'none'
-            setTimeout(resultado, 500)
+            percent.style.display = 'none'
+            resultado()
+            setTimeout(oponenteRR, 500)
+        }
+        falta = 21 - totalJ
+        porcent = falta * 100 / 10
+        if (porcent > 100) { 
+            percent.innerHTML = `${100}%`
+        } else {
+            percent.innerHTML = `<span style="color: rgb(${totalJ * 15}, 0, 0);">${porcent.toFixed(0)}%</span>`
         }
     }
     function pegarOponente() {
          cartaO = Math.floor(Math.random() * (13 - 1)) + 1;
         if (cartaO == 1) {
+            cartaAO = 1
             totalO += 1
             totalOp()
             oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
@@ -157,10 +182,25 @@
             oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
         }
         oponenteR.innerHTML = `<img style="height: 200px;" src="https://worldxm.net/worldxm.net/wp-content/uploads/2018/10/blue-copag-back-310-web.png">`
+        if (totalO <+ 11 && cartaAO == 1) {
+            totalOponente.innerHTML = `${totalO} ou ${totalO + 9}`
+            cartaAOF = 1
+        } else {
+            totalOponente.innerHTML = `${totalO}`
+            cartaAOF = 0
+        }
     }
     function parar() {
+        if (cartaAF == 1) {
+            totalJ += 9
+        } else if (cartaAOF == 1) {
+            totalO += 9
+        }
         pedirB.style.display = 'none'
         pararB.style.display = 'none'
+        percent.style.display = 'none'
+        totalOponente.innerHTML = `${totalO}`
+        totalJogador.innerHTML = `${totalJ}`
         setTimeout(oponenteRR, 500)
         resultado()
     }
@@ -179,6 +219,7 @@
         cartaO = Math.floor(Math.random() * (13 - 1)) + 1;
         if (cartaO == 1) {
             totalO += 1
+            cartaAO = 1
             totalOp()
             oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1194/7/As%20de%20paus.png">`
         } else if (cartaO == 2) {
@@ -230,10 +271,17 @@
             totalOp()
             oponente.innerHTML += `<img style="height: 200px;" src="http://livresaber.sead.ufscar.br:8080/jspui/bitstream/123456789/1231/7/rei%20de%20paus.png">`
         }
-        if (totalO == totalJ && totalO == 21) {
+        if (totalO <= 11 && cartaAO == 1) {
+            totalOponente.innerHTML = `${totalO} ou ${totalO + 9}`
+            cartaAOF = 1
+        } else {
+            totalOponente.innerHTML = `${totalO}`
+            cartaAOF = 0
+        }
+        if (totalO == totalJ && totalO == limite) {
             totalJogador.innerHTML = `EMPATE!`
             reiniciarJogo.style.display = 'block'
-        } else if (totalO > 21){
+        } else if (totalO > limite){
             totalJogador.innerHTML += `<br>GANHOU!`
             reiniciarJogo.style.display = 'block'
         } else {
@@ -243,8 +291,13 @@
     function restart() {
         totalJ = 0
         totalO = 0
+        cartaA = 0
+        cartaAO = 0
+        cartaAF = 0
+        cartaAOF = 0
         pedirB.style.display = 'block'
         pararB.style.display = 'block'
+        percent.style.display = 'block'
         reiniciarJogo.style.display = 'none'
         jogador.innerHTML = ''
         oponente.innerHTML = ''
@@ -256,6 +309,7 @@
     body {
         display: flex;
         justify-content: center;
+        user-select: none;
     }
     .botao {
         height: 50px;
